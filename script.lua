@@ -19,12 +19,10 @@ local Box = trol:AddTextBox("Name All", nil, {["clear"] = false})
 trol:AddSwitch("Name All", function(on)
     local text = Box.Text
     if on == true then
-        for i=1, 10 do
         for i,v in pairs(game.Workspace:GetDescendants()) do
     if v:IsA("RemoteEvent") and v.Parent.ClassName == "Model" and v.Parent.Parent.ClassName == "Model" then
         v:FireServer(text)
         wait(2)
-        end
     end
 end
 end
