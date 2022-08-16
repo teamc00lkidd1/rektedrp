@@ -213,3 +213,13 @@ local poop = nil
  
  
 end)
+local Box2 = trol:AddTextBox("Message", nil, {["clear"] = false})
+trol:AddSwitch("Spam", function(on3)
+    local text = Box.Text
+    if on3 == true then
+        while on3 == true do
+            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Box.Text, "all")
+            wait(2.2)
+        end
+    end
+end)
