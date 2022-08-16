@@ -215,11 +215,16 @@ local poop = nil
 end)
 local Box2 = trol:AddTextBox("Message", nil, {["clear"] = false})
 trol:AddSwitch("Spam", function(on3)
-    local text = Box.Text
+    local text = Box2.Text
     if on3 == true then
-        while on3 == true do
-            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Box.Text, "all")
-            wait(2.2)
+        local truee = on3
+    while true do
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(text, "all")
+                        if on3 == false then
+                    break
+                    
+                end
+                            wait(2.2)
         end
-    end
-end)
+        end
+    end)
