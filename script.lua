@@ -22,7 +22,6 @@ trol:AddSwitch("Name All", function(on)
         for i,v in pairs(game.Workspace:GetDescendants()) do
     if v:IsA("RemoteEvent") and v.Parent.ClassName == "Model" and v.Parent.Parent.ClassName == "Model" then
         v:FireServer(text)
-        wait(2)
     end
 end
 end
