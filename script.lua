@@ -86,7 +86,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CanCollide = false
 end)
  
  
-power = 999999 -- change this to make it more or less powerful
+power = 6942069420 -- change this to make it more or less powerful
  
 power = power*10
  
