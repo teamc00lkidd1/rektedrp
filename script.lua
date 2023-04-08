@@ -254,8 +254,8 @@ game:GetService("RunService").RenderStepped:connect(function()
         end
     end
     if _G.F3xLogSpamEnabled then
-        if v == nil then return end
-        v:FireServer({
+        if log == nil then return end
+        log:FireServer({
             ["Text"] = Box.Text,
             ["Count"] = 1,
             ["F3XHistoryLog"] = {
