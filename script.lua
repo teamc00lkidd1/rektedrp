@@ -21,13 +21,9 @@ trol:AddSwitch(
     function(on)
         _G.LoopNameAllEnabled = on
         while _G.LoopNameAllEnabled do
-            for i, v in pairs(game:GetService("Players"):GetPlayers()) do
-                if v.Character ~= nil then
-                    for _, inst in pairs(v.Character:GetDescendants()) do
-                        if inst:IsA("RemoteEvent") and v.Parent.ClassName == "Model" then
-                            v:FireServer(Box.Text)
-                        end
-                    end
+            for i, v in pairs(workspace:GetDescendants()) do
+                if v:IsA("RemoteEvent") and v.Parent.ClassName == "Model" and v.Parent.Parent.ClassName == "Model" then
+                    v:FireServer(Box.Text)
                 end
             end
             game:GetService("RunService").RenderStepped:Wait()
