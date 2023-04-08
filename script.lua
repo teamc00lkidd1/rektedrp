@@ -15,25 +15,23 @@ local WindowOptions = {
 local Window = library:AddWindow(name, WindowOptions)
 local trol = Window:AddTab("Main")
 
-local Box = trol:AddTextBox("Name All", nil, {["clear"] = false})
+local Box = trol:AddTextBox("Text", nil, {["clear"] = false})
 trol:AddSwitch(
     "Loop Name All",
     function(on)
         _G.LoopNameAllEnabled = on
-        while _G.LoopNameAllEnabled do
-            for i, v in pairs(workspace:GetDescendants()) do
-                if v:IsA("RemoteEvent") and v.Parent.ClassName == "Model" and v.Parent.Parent.ClassName == "Model" then
-                    v:FireServer(Box.Text)
-                end
-            end
-            game:GetService("RunService").RenderStepped:Wait()
-        end
+    end
+)
+trol:AddSwitch(
+    "Loop Spam F3X Logs",
+    function(on)
+        _G.F3xLogSpamEnabled = on
     end
 )
 trol:AddSwitch(
     "Invisfling",
-    function(on2)
-        if on2 == true then
+    function(on)
+        if on == true then
             local ch = game:GetService("Players").LocalPlayer.Character
             local prt = Instance.new("Model")
             prt.Parent = game:GetService("Players").LocalPlayer.Character
@@ -228,23 +226,42 @@ trol:AddSwitch(
         end
     end
 )
-local Box2 = trol:AddTextBox("Message", nil, {["clear"] = false})
 trol:AddSwitch(
     "Spam",
-    function(on3)
-        local text = Box2.Text
-        if on3 == true then
-            local truee = on3
-            while true do
-                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(
-                    text,
-                    "all"
-                )
-                if on3 == false then
-                    break
-                end
-                wait(2.2)
-            end
+    function(on)
+        _G.SpamOn = on
+        while _G.SpamOn do
+            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(
+                Box.Text,
+                "All"
+            )
+            wait(2.2)
         end
     end
 )
+local log
+for i, v in pairs(game:GetService("ReplicatedStorage"):GetDescendants()) do
+    if v.Name == "AddLog" and v:IsA("RemoteEvent") then
+        log = v
+    end
+end
+game:GetService("RunService").RenderStepped:connect(function()
+    if _G.LoopNameAllEnabled then
+        for i, v in pairs(workspace:GetDescendants()) do
+            if v:IsA("RemoteEvent") and v.Parent.ClassName == "Model" and v.Parent.Parent.ClassName == "Model" then
+                v:FireServer(Box.Text)
+            end
+        end
+    end
+    if _G.F3xLogSpamEnabled then
+        if v == nil then return end
+        v:FireServer({
+            ["Text"] = Box.Text,
+            ["Count"] = 1,
+            ["F3XHistoryLog"] = {
+                ["ToolName"] = "delete",
+                ["Apply"] = function()end
+            }
+        })
+    end
+end)
